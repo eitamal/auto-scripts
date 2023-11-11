@@ -1,0 +1,5 @@
+tools:
+  - name: bat
+    repo: sharkdp/bat
+    version: "bat --version"
+    file_name: '"^bat_.+amd64\\\.deb"'
