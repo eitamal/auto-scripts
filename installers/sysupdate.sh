@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
-sudo apt update && \
-    sudo apt upgrade -y && \
-    sudo apt full-upgrade -y && \
-    sudo apt autoclean && \
-    sudo apt autoremove
+sudo apt update &&
+	sudo apt upgrade -y &&
+	sudo apt full-upgrade -y &&
+	sudo apt autoclean &&
+	sudo apt autoremove
 
 rtx self-update
 
