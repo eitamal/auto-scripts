@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 go install golang.org/x/tools/cmd/goimports@latest 
 go install mvdan.cc/gofumpt@latest 
