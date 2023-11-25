@@ -20,10 +20,22 @@ pkgs=(
     honnef.co/go/tools/cmd/staticcheck@latest
 )
 
+# Install Go packages in parallel, checking for errors
 for pkg in "${pkgs[@]}"; do
-    go install "$pkg"
+    go install "$pkg" &
 done
 
-# golangci-lint
-# binary will be $(go env GOPATH)/bin/golangci-lint
-curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin
+wait
+
+# Check for any failed background jobs
+for job in $(jobs -p); do
+    wait "$job" || echo "Installation failed for job $job"
+done
+
+# Install golangci-lint
+GOLANGCI_LINT_INSTALL_SCRIPT="https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh"
+GOLANGCI_LINT_INSTALL_DIR="$(go env GOPATH)/bin"
+GOLANGCI_LINT_INSTALL_FILE="$(mktemp --directory)/install_golangci-lint.sh"
+
+curl -sSfL "$GOLANGCI_LINT_INSTALL_SCRIPT" -o "$GOLANGCI_LINT_INSTALL_FILE"
+sh "$GOLANGCI_LINT_INSTALL_FILE" -b "$GOLANGCI_LINT_INSTALL_DIR"
