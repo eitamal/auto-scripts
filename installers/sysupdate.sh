@@ -9,7 +9,6 @@ sudo apt update &&
 rtx self-update
 
 "$(realpath "$(dirname "$0")/../util/gh-update.sh")" bat sharkdp/bat "bat --version" '"^bat_.+amd64\\.deb"'
-"$(realpath "$(dirname "$0")/../util/gh-update.sh")" hurl Orange-OpenSource/hurl "hurl --version" '"^hurl_.+amd64\\.deb"'
 
 pipx upgrade-all
 brew upgrade
