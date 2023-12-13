@@ -18,6 +18,7 @@ pkgs=(
     golang.org/x/tools/cmd/guru@latest
     github.com/motemen/go-iferr/cmd/goiferr@latest
     honnef.co/go/tools/cmd/staticcheck@latest
+    gorm.io/gen/tools/gentool@latest
 )
 
 # Install Go packages in parallel, checking for errors
