@@ -20,6 +20,7 @@ pkgs=(
     honnef.co/go/tools/cmd/staticcheck@latest
     gorm.io/gen/tools/gentool@latest
     github.com/haya14busa/goplay/cmd/goplay@latest
+    mvdan.cc/sh/v3/cmd/shfmt@latest
 )
 
 # Install Go packages in parallel, checking for errors
