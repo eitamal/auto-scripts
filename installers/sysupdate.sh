@@ -6,7 +6,7 @@ sudo apt update &&
 	sudo apt autoclean &&
 	sudo apt autoremove
 
-rtx self-update
+rtx self-update --yes
 
 "$(realpath "$(dirname "$0")/../util/gh-update.sh")" bat sharkdp/bat "bat --version" '"^bat_.+amd64\\.deb"'
 
