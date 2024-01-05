@@ -23,7 +23,7 @@ extract_version() {
 
 # Checks if the required commands are installed
 check_commands() {
-	for cmd in curl jq dpkg "$command_name"; do
+	for cmd in curl jq dpkg gh "$command_name"; do
 		if ! command -v "$cmd" >/dev/null; then
 			print_message danger "$cmd is required but not installed."
 			exit 1
@@ -44,17 +44,15 @@ get_current_version() {
 fetch_metadata() {
 	print_message secondary "Fetching metadata for the latest release of $command_name."
 
-	local metadata_url="https://api.github.com/repos/$github_repo/releases/latest"
-	metadata=$(curl -sSfL "$metadata_url")
+    local ver=""
+    { read ver; read url; } < <(gh release view --repo "$github_repo" --json tagName,assets --jq '[.tagName, (.assets[] | select(.name | test("^mise-.+macos-x64.tar.xz$")) | .url)][]')
 
-	if [ -z "$metadata" ]; then
+	if [[ -z "$ver" || -z "$url" ]]; then
 		print_message danger "Failed to fetch metadata."
 		exit 1
 	fi
 
-	latest_version=$(extract_version "$(echo "$metadata" | jq -r '.tag_name')")
-	url=$(echo "$metadata" | jq -r ".assets[] | select(.name | test($tagname_matcher)) | .browser_download_url")
-
+	latest_version=$(extract_version "$ver")
 	print_message success "Metadata fetched successfully."
 }
 
