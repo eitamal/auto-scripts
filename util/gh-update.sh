@@ -45,7 +45,7 @@ fetch_metadata() {
 	print_message secondary "Fetching metadata for the latest release of $command_name."
 
     local ver=""
-    { read ver; read url; } < <(gh release view --repo "$github_repo" --json tagName,assets --jq '[.tagName, (.assets[] | select(.name | test("^mise-.+macos-x64.tar.xz$")) | .url)][]')
+    { read ver; read url; } < <(gh release view --repo "$github_repo" --json tagName,assets --jq "[.tagName, (.assets[] | select(.name | test(\"$tagname_matcher\")) | .url)][]")
 
 	if [[ -z "$ver" || -z "$url" ]]; then
 		print_message danger "Failed to fetch metadata."
